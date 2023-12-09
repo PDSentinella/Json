@@ -11,9 +11,9 @@ package eda2;
 public class Test {
     public static void main(String[] args){
         String json; 
-        json = "{\"chave\":[1,}";
-        /*json = "{\n" +
-"    \"pessoa\": {\n" +
+        //json = "{\"chave\":[1,}";
+        json = "{\n" +
+"    \"pessoa\":{\n" +
 "        \"nome\": \"João\",\n" +
 "        \"idade\": 30,\n" +
 "        \"enderecos\": [\n" +
@@ -32,7 +32,7 @@ public class Test {
 "    \"produtos\": [\n" +
 "        {\n" +
 "            \"nome\": \"Produto A\",\n" +
-"            \"preco\": 20.0\n" +
+"            \"preco\": 20\n" +
 "        },\n" +
 "        {\n" +
 "            \"nome\": \"Produto B\",\n" +
@@ -45,7 +45,7 @@ public class Test {
         test.percorrerJson();
         //test.percorrerJson();
         //test.pilha.Log();
-        JsonValidation2 testar = new JsonValidation2(json);
+        JsonValidation2 testar = new JsonValidation2(json.replaceAll("\n", "").replaceAll(" ","")+" ");
         //System.out.println(test.closingChracter());
         testar.validation1(test.pilha);
         //System.out.println(test.closingChracter());

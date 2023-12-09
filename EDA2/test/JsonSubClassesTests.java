@@ -54,6 +54,41 @@ public class JsonSubClassesTests {
 "{\"chave\":[1]}"
  
 };
+    public String[] arrayJsonsTestErrors ={"""
+                                  {
+                                      "pessoa" {
+                                          "nome": "Jo\u00e3o",
+                                          "idade": 30,
+                                          "enderecos": [
+                                              {
+                                                  "tipo": "Residencial",
+                                                  "logradouro": "Rua A",
+                                                  "cidade": "Cidade A"
+                                              },
+                                              {
+                                                  "tipo": "Comercial",
+                                                  "logradouro": "Rua B",
+                                                  "cidade": "Cidade B"
+                                              }
+                                          ]
+                                      },
+                                      "produtos": [
+                                          {
+                                              "nome": "Produto A",
+                                              "preco": 20.0
+                                          },
+                                          {
+                                              "nome": "Produto B",
+                                              "preco": 30
+                                          }
+                                      ]
+                                  }""",
+                       
+"{\"chave\":[1,]}",
+
+"{\"chave\":[1}"
+ 
+};
     public JsonSubClassesTests() {
         
     }
@@ -64,6 +99,16 @@ public class JsonSubClassesTests {
     }
     @Test
     public void testJsonValidatoin2(){
+        
+        for(int i=0;i<arrayJsonsTest.length;i++){
+            this.testar = new JsonValidation2(arrayJsonsTest[i]);
+            assertEquals(true,testar.validation1(prepare(arrayJsonsTest[i])));
+        }
+        
+        
+    }
+    @Test
+    public void testJsonErrors(){
         
         for(int i=0;i<arrayJsonsTest.length;i++){
             this.testar = new JsonValidation2(arrayJsonsTest[i]);

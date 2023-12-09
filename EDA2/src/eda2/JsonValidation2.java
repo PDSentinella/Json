@@ -51,7 +51,7 @@ public class JsonValidation2 {
                 p.pop();
                 return true;
             }
-            this.error = new Error("Not valid value",p.peek(),p.pop().index);
+            this.error = new Error("Not valid value ",p.peek(),p.pop().index+1);
             return false;
                /* abordagem //compara se é diferente de erro, (não compara se é diferente de especial characters, mas pela estrutura do codigo penso que não dara erros)
                 return !p.pop().type.equals(Itemtype.ERROR);*/
