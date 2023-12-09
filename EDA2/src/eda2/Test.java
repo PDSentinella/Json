@@ -11,7 +11,7 @@ package eda2;
 public class Test {
     public static void main(String[] args){
         String json; 
-        json = "{\"chave\":[1,2,]}";
+        json = "{\"chave\":[1,}";
         /*json = "{\n" +
 "    \"pessoa\": {\n" +
 "        \"nome\": \"João\",\n" +
