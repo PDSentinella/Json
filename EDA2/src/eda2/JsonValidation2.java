@@ -20,12 +20,12 @@ public class JsonValidation2 {
     public boolean validation1(PilhaItems p){
         
         if(!validation2(p)){
-            //ErrorLog();
+            ErrorLog();
             return false;
         }
         if(p.lenght()!=0){
             error = new Error("Not valid value",p.peek(),p.pop().index);
-            //ErrorLog();
+            ErrorLog();
             return false;
         }
         //this.p.Log();
@@ -69,9 +69,11 @@ public class JsonValidation2 {
         if(!chavevalidacao(p.pop()) ){
             return false;
         }
-        if(!p.pop().str.equals(":")){
+        if(!p.peek().str.equals(":")){
+            this.error = new Error("Not valid value, expected (:) but found ("+p.peek().str+")",p.peek(),p.pop().index+1);
             return false;
         }
+        p.pop();
         if(! validation2(p)){
             return false;
         }
@@ -86,10 +88,12 @@ public class JsonValidation2 {
                p.pop();
                return true;
            }
+            //this.error = new Error("Not valid value, expected (}) but found ("+p.peek().str+")",p.peek(),p.pop().index);
             return false;
         }
         }
         catch(Exception e){
+            this.error = new Error("Not valid value",null,0);
             return false;
         }
         
@@ -113,6 +117,7 @@ public class JsonValidation2 {
         while(!p.peek().str.equals("]") && p.peek()!=null){
             try{
                 if(!p.peek().str.equals(",")){
+                    this.error = new Error("Not valid value, expected , but found"+p.peek().str,p.peek(),p.pop().index);
                     return false;
                 }
                 else{
@@ -126,6 +131,7 @@ public class JsonValidation2 {
                 
             }
             catch(Exception e){
+                this.error = new Error("Not valid value",p.peek(),p.pop().index);
                 return false;
             }
             
@@ -135,31 +141,36 @@ public class JsonValidation2 {
             //this.p.push(p.pop());
             return true;
         }
+        this.error = new Error("Not valid value, expected ] but found"+p.peek().str,p.peek(),p.pop().index);
         return false;
     }
     public boolean isAtomicValueValide(Item item){
+        this.error = new Error("Not valid value",item,item.index);
         return !item.type.equals(Itemtype.ERROR);
     }
     public boolean chavevalidacao(Item item){
         if(item.type.equals(Itemtype.ERROR)){
-            error = new Error("not valid value",item,item.index);
+            error = new Error("not valid key",item,item.index+1);
             return false;
         }
         String str = item.str;
-        for(int i = 1;i<str.length()-2;i++){
-            if(!Character.isLetterOrDigit(str.charAt(i))){
-               error = new Error("not alpha numeric value",item,i);
+        for(int i = 1;i<str.length()-1;i++){
+            if(!Character.isLetterOrDigit(str.charAt(i))&& str.charAt(i)!='\"'){
+               error = new Error("not valid key, expected alpha numeric value",item,item.index+1);
                return false; 
             }
         }
         return true;
     }
     public void ErrorLog(){
-        System.out.println("char "+error.indexerror);
-        System.out.println(json.substring(error.indexerror+1,error.indexerror+error.item.str.length()+1));
-        for(int i =0;i<0;i++){
-            System.out.print(" ");
+        if(error.item!=null){
+            System.out.println("At char "+(error.indexerror+1));
+            System.out.println(json.substring(error.indexerror,error.indexerror+error.item.str.length()));
+            for(int i =0;i<0;i++){
+                System.out.print(" ");
+            }
+            System.out.println("|");
         }
-        System.out.println("|");
+        System.out.println(error.errorMsg);
     }
 }

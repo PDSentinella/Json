@@ -11,7 +11,7 @@ package eda2;
 public class Test {
     public static void main(String[] args){
         String json; 
-        json = "{\"chave\":[1,2]}{}}}";
+        json = "{\"chave\":[1,2,]}";
         /*json = "{\n" +
 "    \"pessoa\": {\n" +
 "        \"nome\": \"João\",\n" +
@@ -47,7 +47,7 @@ public class Test {
         //test.pilha.Log();
         JsonValidation2 testar = new JsonValidation2(json);
         //System.out.println(test.closingChracter());
-        System.out.println(testar.validation1(test.pilha));
+        testar.validation1(test.pilha);
         //System.out.println(test.closingChracter());
     }
     

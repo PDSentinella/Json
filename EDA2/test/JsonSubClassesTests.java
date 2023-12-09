@@ -19,18 +19,7 @@ import org.junit.Test;
 public class JsonSubClassesTests {
     JsonIterador test;
     JsonValidation2 testar;
-    public JsonSubClassesTests() {
-        
-    }
-    public PilhaItems prepare(String json){
-        this.testar = new JsonValidation2(json);
-        test = new JsonIterador(json);
-        test.percorrerJson();
-        return test.pilha;
-    }
-    @Test
-    public void testJsonValidatoin2(){
-        String[] arrayJsonsTest ={"""
+    public String[] arrayJsonsTest ={"""
                                   {
                                       "pessoa": {
                                           "nome": "Jo\u00e3o",
@@ -65,7 +54,19 @@ public class JsonSubClassesTests {
 "{\"chave\":[1]}"
  
 };
+    public JsonSubClassesTests() {
+        
+    }
+    public PilhaItems prepare(String json){
+        test = new JsonIterador(json);
+        test.percorrerJson();
+        return test.pilha;
+    }
+    @Test
+    public void testJsonValidatoin2(){
+        
         for(int i=0;i<arrayJsonsTest.length;i++){
+            this.testar = new JsonValidation2(arrayJsonsTest[i]);
             assertEquals(true,testar.validation1(prepare(arrayJsonsTest[i])));
         }
         
