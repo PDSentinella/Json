@@ -20,12 +20,12 @@ public class JsonValidation2 {
     public boolean validation1(PilhaItems p){
         
         if(!validation2(p)){
-            ErrorLog();
+            //ErrorLog();
             return false;
         }
         if(p.lenght()!=0){
             error = new Error("Not valid value",p.peek(),p.pop().index);
-            ErrorLog();
+            //ErrorLog();
             return false;
         }
         //this.p.Log();
